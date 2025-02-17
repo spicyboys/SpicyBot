@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpicyBot", "SpicyBot\SpicyBot.csproj", "{F09FB903-E126-480C-9326-761E6DEDD875}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17A3C70F-B563-4DF8-A78B-F615FC92F86C}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpicyBot.Entities", "SpicyBot.Entities\SpicyBot.Entities.csproj", "{3E898E1D-C5B9-4AFB-8510-E128D696161F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpicyBot.Sumo", "SpicyBot.Sumo\SpicyBot.Sumo.csproj", "{2A0C5C6B-CBAF-472C-ABE6-D71D61E72448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpicyBot.Migrations", "SpicyBot.Migrations\SpicyBot.Migrations.csproj", "{64A1CF3F-E78A-4CEF-A70D-D337935EBF68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F09FB903-E126-480C-9326-761E6DEDD875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09FB903-E126-480C-9326-761E6DEDD875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09FB903-E126-480C-9326-761E6DEDD875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09FB903-E126-480C-9326-761E6DEDD875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E898E1D-C5B9-4AFB-8510-E128D696161F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E898E1D-C5B9-4AFB-8510-E128D696161F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E898E1D-C5B9-4AFB-8510-E128D696161F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E898E1D-C5B9-4AFB-8510-E128D696161F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0C5C6B-CBAF-472C-ABE6-D71D61E72448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0C5C6B-CBAF-472C-ABE6-D71D61E72448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0C5C6B-CBAF-472C-ABE6-D71D61E72448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0C5C6B-CBAF-472C-ABE6-D71D61E72448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A1CF3F-E78A-4CEF-A70D-D337935EBF68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1CF3F-E78A-4CEF-A70D-D337935EBF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A1CF3F-E78A-4CEF-A70D-D337935EBF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A1CF3F-E78A-4CEF-A70D-D337935EBF68}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

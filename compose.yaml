@@ -1,0 +1,6 @@
+﻿services:
+  spicybot:
+    image: spicybot
+    build:
+      context: .
+      dockerfile: SpicyBot/Dockerfile
