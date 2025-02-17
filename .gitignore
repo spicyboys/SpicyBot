@@ -1,5 +1,17 @@
+### DotnetCore ###
+
+# .NET Core build folders
 bin/
 obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
+
+### JetBrains ###
+
+# Resharper
+_ReSharper*/
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
