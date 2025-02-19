@@ -16,7 +16,6 @@ public class DiscordEventService(
     public Task StartAsync(CancellationToken cancellationToken)
     {
         client.Ready += Ready;
-        client.PollVoteAdded += PollVoteAdded;
         client.MessageUpdated += MessageUpdated;
         return Task.CompletedTask;
     }
@@ -24,7 +23,6 @@ public class DiscordEventService(
     public Task StopAsync(CancellationToken cancellationToken)
     {
         client.Ready -= Ready;
-        client.PollVoteAdded -= PollVoteAdded;
         client.MessageUpdated -= MessageUpdated;
         return Task.CompletedTask;
     }
@@ -33,17 +31,6 @@ public class DiscordEventService(
     {
         var scheduler = await schedulerFactory.GetScheduler();
         await scheduler.TriggerJob(StartGameJob.Key);
-    }
-
-    private Task PollVoteAdded(
-        Cacheable<IUser, ulong> user,
-        Cacheable<ISocketMessageChannel, IRestMessageChannel, IMessageChannel, ulong> channel,
-        Cacheable<IUserMessage, ulong> message,
-        Cacheable<SocketGuild, RestGuild, IGuild, ulong>? guild,
-        ulong id)
-    {
-        logger.LogInformation($"Poll vote {id} received by {user.Id} in channel {channel.Id} on message {message.Id}.");
-        return Task.CompletedTask;
     }
 
     private Task MessageUpdated(

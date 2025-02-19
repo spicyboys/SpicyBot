@@ -6,6 +6,9 @@ obj/
 
 ### JetBrains ###
 
+# Rider
+*.DotSettings.user
+
 # Resharper
 _ReSharper*/
 

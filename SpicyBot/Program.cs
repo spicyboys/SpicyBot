@@ -31,13 +31,11 @@ using var host = Host.CreateDefaultBuilder(args)
             {
                 GatewayIntents = GatewayIntents.GuildMessagePolls
             })
-            .AddSingleton<DiscordSocketClient>()
-            .AddSingleton(s => new InteractionService(s.GetRequiredService<DiscordSocketClient>()));
+            .AddSingleton<DiscordSocketClient>();
             
         services
             .AddHostedService<DiscordLoginService>()
-            .AddHostedService<DiscordLoggingService>()
-            .AddHostedService<DiscordInteractionService>();
+            .AddHostedService<DiscordLoggingService>();
         
         services.AddSumo();
     })
