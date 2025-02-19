@@ -26,16 +26,13 @@ namespace SpicyBoy.Migrations.Migrations
                     b.Property<decimal>("UserId")
                         .HasColumnType("numeric(20,0)");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("SumoGameId")
+                        .HasColumnType("numeric(20,0)");
 
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("SumoGameId")
-                        .HasColumnType("numeric(20,0)");
-
-                    b.HasKey("UserId", "GameId");
+                    b.HasKey("UserId", "SumoGameId");
 
                     b.HasIndex("SumoGameId");
 

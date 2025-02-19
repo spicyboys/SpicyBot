@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
 using SpicyBot.Entities;
 using SpicyBot.Services;
 using SpicyBot.Sumo;
@@ -23,6 +24,8 @@ using var host = Host.CreateDefaultBuilder(args)
                 x => x.MigrationsAssembly("SpicyBot.Migrations"));
         });
 
+        services.AddQuartzHostedService();
+
         services
             .AddSingleton(new DiscordSocketConfig
             {
@@ -31,7 +34,10 @@ using var host = Host.CreateDefaultBuilder(args)
             .AddSingleton<DiscordSocketClient>()
             .AddSingleton(s => new InteractionService(s.GetRequiredService<DiscordSocketClient>()));
             
-        services.AddHostedService<DiscordLoginService>();
+        services
+            .AddHostedService<DiscordLoginService>()
+            .AddHostedService<DiscordLoggingService>()
+            .AddHostedService<DiscordInteractionService>();
         
         services.AddSumo();
     })

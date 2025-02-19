@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+using SpicyBot.Sumo.Jobs;
 using SpicyBot.Sumo.Services;
 
 namespace SpicyBot.Sumo;
@@ -9,6 +11,10 @@ public static class SumoServiceCollectionExtensions
     {
         return serviceCollection
             .AddHostedService<DiscordEventService>()
-            .AddHostedService<DiscordInteractionService>();
+            .AddHostedService<DiscordInteractionService>()
+            .AddQuartz(q =>
+            {
+                q.AddJob<StartGameJob>(o => o.WithIdentity(StartGameJob.Key).StoreDurably());
+            });
     }
 }

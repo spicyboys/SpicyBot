@@ -38,13 +38,12 @@ namespace SpicyBoy.Migrations.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
-                    GameId = table.Column<int>(type: "integer", nullable: false),
-                    Amount = table.Column<int>(type: "integer", nullable: false),
-                    SumoGameId = table.Column<decimal>(type: "numeric(20,0)", nullable: false)
+                    SumoGameId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    Amount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SumoBets", x => new { x.UserId, x.GameId });
+                    table.PrimaryKey("PK_SumoBets", x => new { x.UserId, x.SumoGameId });
                     table.ForeignKey(
                         name: "FK_SumoBets_SumoGames_SumoGameId",
                         column: x => x.SumoGameId,

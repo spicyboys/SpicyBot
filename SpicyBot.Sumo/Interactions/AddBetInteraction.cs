@@ -2,17 +2,21 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SpicyBot.Entities;
 using SpicyBot.Entities.Sumo;
 
 namespace SpicyBot.Sumo.Interactions;
 
-public class AddBetInteraction(ApplicationDbContext db)
+public class AddBetInteraction(ApplicationDbContext db, ILogger<AddBetInteraction> logger)
     : InteractionModuleBase<SocketInteractionContext<SocketMessageComponent>>
 {
-    [ComponentInteraction("add-bet-prompt:*")]
-    public async Task AddBetPrompt(string gameId)
+    [ComponentInteraction("add-bet-prompt")]
+    public async Task AddBetPrompt()
     {
+        var gameId = Context.Interaction.Message.Id;
+        logger.LogInformation("Adding bet prompt for {gameId}", gameId);
+        
         var user = await db.Users.FindAsync(Context.User.Id);
         if (user == null || user.PointBalance == 0)
         {
@@ -23,26 +27,27 @@ public class AddBetInteraction(ApplicationDbContext db)
         }
 
         var bet = await db.SumoBets
-            .Where(s => s.UserId == user.Id && s.GameId == int.Parse(gameId))
+            .Where(s => s.UserId == user.Id && s.SumoGameId == gameId)
             .SingleOrDefaultAsync();
-
+        
         await Context.Interaction.RespondAsync(
-            $"Your current bet is {bet?.Amount ?? 0} and your point balance is {user.PointBalance}",
+            $"Your current additional bet is {bet?.Amount ?? 0} and your point balance is {user.PointBalance}",
             components: BuildBetAmountButtons(user, gameId));
     }
 
     [ComponentInteraction("bet-amount:*:*")]
     public async Task AddBetAmount(string gameId, string amount)
     {
+        logger.LogInformation("Adding bet amount {amount} for {gameId}", amount, gameId);
         var bet = await db.SumoBets
-            .Where(s => s.UserId == Context.User.Id && s.GameId == int.Parse(gameId))
+            .Where(s => s.UserId == Context.User.Id && s.SumoGameId == ulong.Parse(gameId))
             .SingleOrDefaultAsync();
         if (bet == null)
         {
             bet = new SumoBet()
             {
                 UserId = Context.User.Id,
-                GameId = int.Parse(gameId),
+                SumoGameId = ulong.Parse(gameId),
                 Amount = int.Parse(amount)
             };
             db.SumoBets.Add(bet);
@@ -54,10 +59,14 @@ public class AddBetInteraction(ApplicationDbContext db)
         
         await db.SaveChangesAsync();
 
-        await Context.Interaction.UpdateAsync(m => m.Content =$"Bet updated to {bet.Amount}");
+        await Context.Interaction.UpdateAsync(m =>
+        {
+            m.Content = $"Additional bet is {bet.Amount}.";
+            m.Components = null;
+        });
     }
 
-    private MessageComponent BuildBetAmountButtons(User user, string gameId)
+    private MessageComponent BuildBetAmountButtons(User user, ulong gameId)
     {
         var builder = new ComponentBuilder();
         if (user.PointBalance < 3)
@@ -70,7 +79,7 @@ public class AddBetInteraction(ApplicationDbContext db)
         else
         {
             builder
-                .WithButton("1", $"bet-amount:1:{gameId}")
+                .WithButton("1", $"bet-amount:{gameId}:1")
                 .WithButton((user.PointBalance / 2).ToString(), $"bet-amount:{gameId}:{user.PointBalance / 2}")
                 .WithButton(user.PointBalance.ToString(), $"bet-amount:{gameId}:{user.PointBalance}");
         }
